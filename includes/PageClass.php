@@ -29,6 +29,7 @@ class PageClass
                     <title>Programación Avanzada</title>
                     <link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                    <link href="css/estilos.css" rel="stylesheet">
                 </head>
                 <body class="bg-light">
                     <div class="container">';
@@ -54,6 +55,9 @@ class PageClass
                                 <li class="nav-item">
                                     <a class="nav-link" aria-current="page" href="formPersonas.php">Formulario de Personas</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="formLogin.php">Login</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -71,7 +75,8 @@ class PageClass
     private function setJs()
     {
         $this->js='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-                   <script src="js/formPersonas.js"></script>';
+                   <script src="js/formPersonas.js"></script>
+                   <script src="js/formLogin.js"></script>';
     }
 
     private function setFooter()
