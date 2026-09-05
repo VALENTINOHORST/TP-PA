@@ -53,9 +53,6 @@ class PageClass
                                     <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="formPersonas.php">Formulario de Personas</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" aria-current="page" href="formLogin.php">Login</a>
                                 </li>
                             </ul>
@@ -81,7 +78,10 @@ class PageClass
 
     private function setFooter()
     {
-        $this->footer='</body></html>';
+        $this->footer='<footer class="text-center py-3 my-4 border-top text-muted">
+                        <small>Programación Avanzada &copy; 2026 - FCyT UADER</small>
+                       </footer>
+                       </body></html>';
     }
 
     public function getHtml()
