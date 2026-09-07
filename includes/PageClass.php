@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class PageClass
 {
     private $header;
@@ -38,6 +40,10 @@ class PageClass
 
     private function setNavBar()
     {
+        $enlaceSesion = isset($_SESSION['usuario'])
+            ? '<li class="nav-item"><a class="btn btn-outline-danger ms-lg-2" href="logout.php">Cerrar sesión</a></li>'
+            : '';
+
         $this->navbar='<nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="index.php">
@@ -55,6 +61,7 @@ class PageClass
                                 <li class="nav-item">
                                     <a class="nav-link" aria-current="page" href="formLogin.php">Login</a>
                                 </li>
+                                '.$enlaceSesion.'
                             </ul>
                         </div>
                     </div>

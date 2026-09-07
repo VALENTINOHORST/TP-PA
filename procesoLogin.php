@@ -12,6 +12,7 @@ if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
     if ($_POST['usuario'] === $usuarioValido && $_POST['contrasena'] === $contrasenaValida) {
         $ok      = true;
         $mensaje = 'ingreso correctamente';
+        $_SESSION['usuario'] = $_POST['usuario'];
     } else {
         $mensaje = 'Usuario o contraseña incorrectos.';
     }
