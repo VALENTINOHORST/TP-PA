@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE && isset($_COOKIE[session_name()])) {
+    session_start();
+}
 
 class PageClass
 {
