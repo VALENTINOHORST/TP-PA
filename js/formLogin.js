@@ -4,6 +4,7 @@ class FormLogin {
         this.form = document.getElementById('formLogin');
         this.usuario = document.getElementById('usuario');
         this.contrasena = document.getElementById('contrasena');
+        this.captcha = document.getElementById('captcha');
         this.btnLogin = document.getElementById('btnLogin');
         this.mensajeDiv = document.getElementById('loginMensaje');
     }
@@ -23,7 +24,8 @@ class FormLogin {
     validarFormulario() {
         const usuarioValido = this.validarCampo(this.usuario);
         const contrasenaValida = this.validarCampo(this.contrasena);
-        const formValido = usuarioValido && contrasenaValida;
+        const captchaValido = this.validarCampo(this.captcha);
+        const formValido = usuarioValido && contrasenaValida && captchaValido;
 
         this.btnLogin.disabled = !formValido;
 
@@ -43,6 +45,7 @@ class FormLogin {
         fetch(this.form.action, {
             method: 'POST',
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            credentials: 'same-origin',
             body: datos
         })
         .then(response => response.json())
@@ -65,6 +68,7 @@ class FormLogin {
     init() {
         this.usuario.addEventListener('input', () => this.validarFormulario());
         this.contrasena.addEventListener('input', () => this.validarFormulario());
+        this.captcha.addEventListener('input', () => this.validarFormulario());
 
         this.form.addEventListener('submit', (event) => {
             event.preventDefault();

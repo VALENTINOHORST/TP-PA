@@ -23,6 +23,17 @@ $body='<h4 class="text-center">Formulario de Login</h4><br>
                 <div class="invalid-feedback">El campo Contraseña no puede estar vacío.</div>
             </div>
 
+            <div class="mb-3">
+                <label>Captcha</label>
+                <div class="d-flex align-items-center mb-2">
+                    <img src="captcha.php" alt="Captcha" id="imgCaptcha" class="border rounded me-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById(\'imgCaptcha\').src=\'captcha.php?\'+Math.random();" title="Recargar Captcha">↻ Recargar</button>
+                </div>
+                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Ingrese los números" autocomplete="off">
+                <div class="valid-feedback">Bien!</div>
+                <div class="invalid-feedback">Debe ingresar el código de la imagen.</div>
+            </div>
+
             <button class="btn btn-primary" type="submit" id="btnLogin" disabled>Ingresar</button>
 
             <div id="loginMensaje" class="mt-3"></div>

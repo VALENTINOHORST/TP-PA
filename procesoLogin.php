@@ -6,22 +6,29 @@ $usuarioValido    = 'fcytuader';
 $contrasenaValida = 'programacionavanzada';
 
 $ok      = false;
-$mensaje = 'Debe completar usuario y contraseña.';
+$mensaje = 'Debe completar todos los campos.';
 
-if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
-    if ($_POST['usuario'] === $usuarioValido && $_POST['contrasena'] === $contrasenaValida) {
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$esAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+
+if (isset($_POST['usuario']) && isset($_POST['contrasena']) && isset($_POST['captcha'])) {
+    if (!isset($_SESSION['captcha']) || $_POST['captcha'] !== $_SESSION['captcha']) {
+        $mensaje = 'El código CAPTCHA es incorrecto.';
+    } else if ($_POST['usuario'] === $usuarioValido && $_POST['contrasena'] === $contrasenaValida) {
         $ok      = true;
-        $mensaje = 'ingreso correctamente';
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $mensaje = 'Ingresó correctamente!';
         $_SESSION['usuario'] = $_POST['usuario'];
+        
+        if (!$esAjax) {
+            unset($_SESSION['captcha']);
+        }
     } else {
         $mensaje = 'Usuario o contraseña incorrectos.';
     }
 }
-
-$esAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
 
 if ($esAjax) {
     header('Content-Type: application/json; charset=utf-8');

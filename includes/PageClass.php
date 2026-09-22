@@ -35,7 +35,7 @@ class PageClass
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
                     <link href="css/estilos.css" rel="stylesheet">
                 </head>
-                <body class="bg-light">
+                <body class="bg-light d-flex flex-column min-vh-100">
                     <div class="container">';
     }
 
@@ -77,19 +77,19 @@ private function setNavBar()
     if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])) {
         $usuario = htmlspecialchars($_SESSION['usuario'], ENT_QUOTES, 'UTF-8');
         $enlaceSesion = '
-            <li class="nav-item">
-                <span class="navbar-text me-lg-2">
-                    Logueado como <strong>' . $usuario . '</strong>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text me-3">
+                    Logueado como <strong class="text-dark">' . $usuario . '</strong>
                 </span>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-outline-danger ms-lg-2" href="logout.php">Cerrar sesión</a>
-            </li>';
+                <a class="btn btn-outline-danger btn-sm" href="logout.php">Cerrar sesión</a>
+            </div>';
     } else {
         $enlaceSesion = '
-            <li class="nav-item">
-                <a class="nav-link" href="formLogin.php">Login</a>
-            </li>';
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="formLogin.php">Login</a>
+                </li>
+            </ul>';
     }
 
     $this->navbar = '<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -106,8 +106,8 @@ private function setNavBar()
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="Inicio.php">Inicio</a>
                             </li>
-                            ' . $enlaceSesion . '
                         </ul>
+                        ' . $enlaceSesion . '
                     </div>
                 </div>
             </nav>';
@@ -129,7 +129,7 @@ private function setNavBar()
 
     private function setFooter()
     {
-        $this->footer='<footer class="text-center py-3 my-4 border-top text-muted">
+        $this->footer='<footer class="text-center py-3 mt-auto bg-light border-top text-muted">
                         <small>Programación Avanzada &copy; 2026 - FCyT UADER</small>
                        </footer>
                        </body></html>';
