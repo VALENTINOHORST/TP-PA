@@ -37,21 +37,10 @@ if ($esAjax) {
 }
 
 if ($ok) {
-    $cuerpoMensaje = '<div class="alert alert-success text-center" role="alert">'.$mensaje.'</div>';
+    header('Location: inicio.php');
+    exit;
 } else {
-    $cuerpoMensaje = '<div class="alert alert-danger text-center" role="alert">'.$mensaje.'</div>
-                      <div class="d-flex justify-content-center">
-                          <a href="formLogin.php" class="btn btn-secondary">Volver al formulario</a>
-                      </div>';
+    header('Location: formLogin.php?error=' . urlencode($mensaje));
+    exit;
 }
-
-$body='<h4 class="text-center">Resultado del Login</h4><br>
-        '.$cuerpoMensaje;
-
-$oPage=new PageClass();
-
-  $oPage->setBody($body);
-
-echo $oPage->getHtml();
-
 ?>

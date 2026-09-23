@@ -2,6 +2,11 @@
 
 require_once __DIR__.'/includes/PageClass.php';
 
+$alertaError = '';
+if (isset($_GET['error'])) {
+    $errorSaneado = htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8');
+    $alertaError = '<div class="alert alert-danger text-center" role="alert">' . $errorSaneado . '</div>';
+}
 
 $body='<h4 class="text-center">Formulario de Login</h4><br>
 
@@ -36,7 +41,7 @@ $body='<h4 class="text-center">Formulario de Login</h4><br>
 
             <button class="btn btn-primary" type="submit" id="btnLogin" disabled>Ingresar</button>
 
-            <div id="loginMensaje" class="mt-3"></div>
+            <div id="loginMensaje" class="mt-3">' . $alertaError . '</div>
 
         </form>
     </div>';
