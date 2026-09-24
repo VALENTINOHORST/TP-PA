@@ -37,7 +37,7 @@ if ($esAjax) {
 }
 
 if ($ok) {
-    header('Location: inicio.php');
+    header('Location: Inicio.php');
     exit;
 } else {
     header('Location: formLogin.php?error=' . urlencode($mensaje));
