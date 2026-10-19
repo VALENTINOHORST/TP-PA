@@ -1,0 +1,40 @@
+CREATE DATABASE IF NOT EXISTS calendario_academico
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE calendario_academico;
+
+-- 1. Tabla de Usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    clave VARCHAR(255) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    rol ENUM('admin', 'alumno') NOT NULL DEFAULT 'alumno',
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 2. Tabla de Eventos / Fechas
+CREATE TABLE IF NOT EXISTS eventos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+    materia VARCHAR(100) NOT NULL,
+    tipo ENUM('Examen', 'Entrega', 'Parcial', 'Final') NOT NULL,
+    fecha_evento DATE NOT NULL,
+    descripcion TEXT NULL,
+    id_usuario INT NOT NULL,
+    es_global TINYINT(1) NOT NULL DEFAULT 0,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 3. Inserts de prueba
+INSERT INTO usuarios (usuario, clave, nombre, rol) VALUES
+('fcytuader', '$2a$12$XuHGbJ/USgjE6XGWX//IeeROuwZ.P0QU2/GRDZu2xkvR2BvAqlfbK', 'Administrador', 'admin'),
+('alumno1', '$2y$10$T9yP3WwNn9X9pQ1oF8kKMeR1rL4qF0jS2eP1d9eU4hH5vL8qA3kQ2', 'Estudiante de Prueba', 'alumno')
+ON DUPLICATE KEY UPDATE id=id;
+
+-- Fechas oficiales precargadas (creadas por el admin id=1, es_global=1)
+INSERT INTO eventos (titulo, materia, tipo, fecha_evento, descripcion, id_usuario, es_global) VALUES
+('Primer Parcial', 'Programación Avanzada', 'Parcial', '2026-10-08', 'Tema: PHP', 1, 1),
+('3ra Entrega TP', 'Programación Avanzada', 'Entrega', '2026-10-22', 'Subir informe y código al campus virtual', 1, 1),
+('Parcial Paradigmas y lenguajes', 'Paradigmas y lenguajes', 'Parcial', '2026-10-23', 'Se viene complicado', 1, 1);
