@@ -4,8 +4,8 @@ class Database
 {
     private static $host = '127.0.0.1';
     private static $db   = 'calendario_academico';
-    private static $user = 'root';
-    private static $pass = ''; // Por defecto en XAMPP suele estar vacía
+    private static $user = '2026_grupo4';
+    private static $pass = 'gRupp4#1F3k43'; // Por defecto en XAMPP suele estar vacía
     private static $charset = 'utf8mb4';
 
     private static $conexion = null;
