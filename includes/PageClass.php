@@ -33,6 +33,8 @@ class PageClass
         <!-- Iconos y Estilos de CalendarJS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@calendarjs/ce/dist/style.min.css">
+        <!-- Estilos de DataTables (Bootstrap 5) -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
         <link href="css/estilos.css" rel="stylesheet">
         </head>
         <body class="bg-light d-flex flex-column min-vh-100">
@@ -91,13 +93,18 @@ class PageClass
 
     private function setJs()
     {
-        $this->js = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        $this->js = '<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
         <!-- Dependencias de CalendarJS -->
         <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@calendarjs/ce/dist/index.min.js"></script>
+        <!-- DataTables JS y extensión Bootstrap 5 -->
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
         <!-- Scripts locales -->
         <script src="js/formLogin.js"></script>
-        <script src="js/calendario.js"></script>';
+        <script src="js/calendario.js"></script>
+        <script src="js/abmEventos.js"></script>';
     }
 
     private function setFooter()

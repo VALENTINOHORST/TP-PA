@@ -14,6 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
     })
     .then(eventos => {
+        if (!eventos || eventos.length === 0) {
+            contenedor.innerHTML = `
+                <div class="text-center py-5 text-muted">
+                    <p class="fs-5 mb-1">📅 No hay fechas oficiales registradas actualmente.</p>
+                    <small>Las fechas se mostrarán aquí una vez que sean cargadas desde el sistema.</small>
+                </div>
+            `;
+            return;
+        }
+
         if (typeof calendarjs !== 'undefined' && calendarjs.Timeline) {
             const { Timeline } = calendarjs;
 

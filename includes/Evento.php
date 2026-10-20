@@ -82,8 +82,11 @@ class Evento
             return false;
         }
 
-        // Si es admin se guarda como fecha global (1); si es alumno, como personal (0)
-        $esGlobal = ($rol === 'admin') ? 1 : 0;
+        // Si es admin puede definir si es global (1) o personal (0); si es alumno siempre es personal (0)
+        $esGlobal = 0;
+        if ($rol === 'admin') {
+            $esGlobal = isset($datos['es_global']) ? (int)$datos['es_global'] : 1;
+        }
 
         $sql = "INSERT INTO eventos (titulo, materia, tipo, fecha_evento, descripcion, id_usuario, es_global)
         VALUES (:titulo, :materia, :tipo, :fecha_evento, :descripcion, :id_usuario, :es_global)";
@@ -111,9 +114,10 @@ class Evento
         }
 
         if ($rol === 'admin') {
+            $esGlobal = isset($datos['es_global']) ? (int)$datos['es_global'] : 1;
             $sql = "UPDATE eventos
             SET titulo = :titulo, materia = :materia, tipo = :tipo,
-            fecha_evento = :fecha_evento, descripcion = :descripcion
+            fecha_evento = :fecha_evento, descripcion = :descripcion, es_global = :es_global
             WHERE id = :id";
             $params = [
                 ':titulo'       => $datos['titulo'],
@@ -121,6 +125,7 @@ class Evento
                 ':tipo'         => $datos['tipo'],
                 ':fecha_evento' => $datos['fecha_evento'],
                 ':descripcion'  => $datos['descripcion'] ?? '',
+                ':es_global'    => $esGlobal,
                 ':id'           => $id
             ];
         } else {
