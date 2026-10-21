@@ -1,56 +1,15 @@
 <?php
 
-require_once __DIR__.'/includes/PageClass.php';
+require_once __DIR__ . '/includes/PageClass.php';
 
-$alertaError = '';
-if (isset($_GET['error'])) {
-    $errorSaneado = htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8');
-    $alertaError = '<div class="alert alert-danger text-center" role="alert">' . $errorSaneado . '</div>';
-}
+$mostrarError = isset($_GET['error']);
+$error = $_GET['error'] ?? '';
 
-$body='<h4 class="text-center">Formulario de Login</h4><br>
+ob_start();
+require __DIR__ . '/views/auth/login.php';
+$body = ob_get_clean();
 
-    <div class="d-flex justify-content-center">
+$pagina = new PageClass();
+$pagina->setBody($body);
 
-        <form id="formLogin" method="post" action="procesoLogin.php" style="min-width:350px;max-width:400px;width:100%">
-
-            <div class="mb-3">
-                <label>Usuario</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" autocomplete="off">
-                <div class="valid-feedback">Bien!</div>
-                <div class="invalid-feedback">El campo Usuario no puede estar vacío.</div>
-            </div>
-
-            <div class="mb-3">
-                <label>Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
-                <div class="valid-feedback">Bien!</div>
-                <div class="invalid-feedback">El campo Contraseña no puede estar vacío.</div>
-            </div>
-
-            <div class="mb-3">
-                <label>Captcha</label>
-                <div class="d-flex align-items-center mb-2">
-                    <img src="captcha.php" alt="Captcha" id="imgCaptcha" class="border rounded me-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById(\'imgCaptcha\').src=\'captcha.php?\'+Math.random();" title="Recargar Captcha">↻ Recargar</button>
-                </div>
-                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Ingrese los números" autocomplete="off">
-                <div class="valid-feedback">Bien!</div>
-                <div class="invalid-feedback">Debe ingresar el código de la imagen.</div>
-            </div>
-
-            <button class="btn btn-primary" type="submit" id="btnLogin" disabled>Ingresar</button>
-
-            <div id="loginMensaje" class="mt-3">' . $alertaError . '</div>
-
-        </form>
-    </div>';
-
-$oPage=new PageClass();
-
-  $oPage->setBody($body);
-
-echo $oPage->getHtml();
-
-
-?>
+echo $pagina->getHtml();
