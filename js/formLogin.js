@@ -51,8 +51,8 @@ class FormLogin {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                // Credenciales correctas: navegamos de verdad a procesoLogin.php
-                this.form.submit();
+                // Credenciales correctas: navegamos al panel con ?opt=inicio
+                window.location.href = 'index.php?opt=inicio';
             } else {
                 // Credenciales incorrectas: nos quedamos en el form con el mensaje
                 this.mostrarMensaje(data.mensaje, 'danger');
@@ -84,4 +84,6 @@ window.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('formLogin')) {
         new FormLogin().init();
     }
+});
+
 });

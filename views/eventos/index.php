@@ -46,7 +46,7 @@ $esAdmin = $rol === 'admin';
                         <th>Materia</th>
                         <th style="width: 110px;">Fecha</th>
                         <th>Descripción</th>
-                        <th style="width: 150px;">Ámbito</th>
+                        <th style="width: 150px;">Visibilidad</th>
                         <th class="text-center" style="width: 170px;">Acciones</th>
                     </tr>
                 </thead>
@@ -74,7 +74,8 @@ $esAdmin = $rol === 'admin';
                             $claseTipo = 'bg-success';
                         }
 
-                        $puedeGestionar = $esAdmin || ((int) $evento['id_usuario'] === $idUsuario && $esGlobal === 0);
+                        // El admin gestiona todo; el alumno gestiona sus propios eventos (sean públicos o privados)
+                        $puedeGestionar = $esAdmin || ((int) $evento['id_usuario'] === $idUsuario);
                         ?>
                         <tr>
                             <td><span class="badge <?= $claseTipo ?>"><?= $tipo ?></span></td>
@@ -84,11 +85,11 @@ $esAdmin = $rol === 'admin';
                             <td><small class="text-muted"><?= $descripcion !== '' ? $descripcion : '<em>Sin descripción</em>' ?></small></td>
                             <td>
                                 <?php if ($esGlobal === 1): ?>
-                                    <span class="badge bg-info text-dark" title="Visible para todos">Oficial</span>
+                                    <span class="badge bg-success" title="Visible para todos, incluso sin iniciar sesión">🌐 Pública</span>
                                 <?php else: ?>
-                                    <span class="badge bg-secondary" title="Fecha personal">Personal</span>
+                                    <span class="badge bg-secondary" title="Solo visible por vos">🔒 Privada</span>
                                 <?php endif; ?>
-                                <small class="text-muted">(<?= $autor ?>)</small>
+                                <small class="text-muted d-block">(por <?= $autor ?>)</small>
                             </td>
                             <td>
                                 <?php if ($puedeGestionar): ?>
@@ -126,7 +127,7 @@ $esAdmin = $rol === 'admin';
 <div class="modal fade" id="modalEvento" tabindex="-1" aria-labelledby="modalEventoTitulo" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="formEvento" method="POST" action="controladorEvento.php" novalidate>
+            <form id="formEvento" method="POST" action="index.php?opt=evento" novalidate>
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold" id="modalEventoTitulo">Nueva Fecha / Evento</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -172,14 +173,16 @@ $esAdmin = $rol === 'admin';
                         <textarea class="form-control" id="eventoDescripcion" name="descripcion" rows="3" placeholder="Detalles de temas, aula, modalidad..."></textarea>
                     </div>
 
-                    <?php if ($esAdmin): ?>
-                        <div class="form-check form-switch mb-3 p-2 bg-light border rounded">
-                            <input class="form-check-input ms-0 me-2" type="checkbox" id="eventoGlobal" name="es_global" value="1">
-                            <label class="form-check-label fw-semibold" for="eventoGlobal">
-                                Fecha Oficial / Global <small class="text-muted fw-normal">(visible en la cartelera pública para todos los alumnos)</small>
-                            </label>
+                    <div class="mb-3">
+                        <label for="eventoGlobal" class="form-label fw-semibold">Visibilidad de la Fecha *</label>
+                        <select class="form-select" id="eventoGlobal" name="es_global" required>
+                            <option value="1">🌐 Pública (Visible para todos, incluso sin iniciar sesión)</option>
+                            <option value="0">🔒 Privada (Solo visible por mí en este panel)</option>
+                        </select>
+                        <div class="form-text">
+                            Las fechas <strong>Públicas</strong> aparecen en la cartelera principal para cualquier visitante. Las <strong>Privadas</strong> solo las ves vos en tu panel.
                         </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -193,7 +196,7 @@ $esAdmin = $rol === 'admin';
 <div class="modal fade" id="modalEliminarEvento" tabindex="-1" aria-labelledby="modalEliminarTitulo" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="formEliminarEvento" method="POST" action="controladorEvento.php">
+            <form id="formEliminarEvento" method="POST" action="index.php?opt=evento">
                 <input type="hidden" name="accion" value="eliminar">
                 <input type="hidden" name="id_evento" id="eliminarIdEvento" value="">
 

@@ -5,6 +5,7 @@ require_once __DIR__ . '/../models/Evento.php';
 
 class EventoController
 {
+    
     public static function listarPublicos(): void
     {
         header('Content-Type: application/json; charset=utf-8');
@@ -17,14 +18,15 @@ class EventoController
             exit;
         }
 
+    
         $eventos = Evento::obtenerPublicos();
         $eventosTimeline = [];
 
         foreach ($eventos as $evento) {
             $eventosTimeline[] = [
-                'title' => $evento['titulo'],
+                'title'    => $evento['titulo'],
                 'subtitle' => $evento['materia'] . ' (' . $evento['tipo'] . ')',
-                'date' => $evento['fecha_evento']
+                'date'     => $evento['fecha_evento']
             ];
         }
 
@@ -39,7 +41,7 @@ class EventoController
         }
 
         if (!isset($_SESSION['id_usuario'])) {
-            header('Location: formLogin.php');
+            header('Location: index.php?opt=login');
             exit;
         }
 
@@ -48,11 +50,11 @@ class EventoController
 
         if (!Database::getConexion()) {
             $_SESSION['flash'] = [
-                'tipo' => 'danger',
+                'tipo'    => 'danger',
                 'mensaje' => Database::getErrorConexion()
             ];
 
-            header('Location: Inicio.php');
+            header('Location: index.php?opt=inicio');
             exit;
         }
 
@@ -61,7 +63,8 @@ class EventoController
         switch ($accion) {
             case 'crear':
                 $datos = self::obtenerDatosEvento();
-                $datos['es_global'] = ($rol === 'admin' && !empty($_POST['es_global'])) ? 1 : 0;
+                // 1 = Pública, 0 = Privada (definido por el usuario en el formulario)
+                $datos['es_global'] = (isset($_POST['es_global']) && (int)$_POST['es_global'] === 1) ? 1 : 0;
 
                 if (!self::datosValidos($datos)) {
                     self::redirigir('warning', 'Por favor, complete todos los campos obligatorios con valores válidos.');
@@ -79,7 +82,8 @@ class EventoController
             case 'editar':
                 $id = (int) ($_POST['id_evento'] ?? 0);
                 $datos = self::obtenerDatosEvento();
-                $datos['es_global'] = ($rol === 'admin' && !empty($_POST['es_global'])) ? 1 : 0;
+                // Permite cambiar la visibilidad a Pública o Privada
+                $datos['es_global'] = (isset($_POST['es_global']) && (int)$_POST['es_global'] === 1) ? 1 : 0;
 
                 if ($id <= 0 || !self::datosValidos($datos)) {
                     self::redirigir('warning', 'Datos inválidos para modificar el evento.');
@@ -111,7 +115,7 @@ class EventoController
                 );
 
             default:
-                header('Location: Inicio.php');
+                header('Location: index.php?opt=inicio');
                 exit;
         }
     }
@@ -119,11 +123,11 @@ class EventoController
     private static function obtenerDatosEvento(): array
     {
         return [
-            'titulo' => trim($_POST['titulo'] ?? ''),
-            'materia' => trim($_POST['materia'] ?? ''),
-            'tipo' => trim($_POST['tipo'] ?? ''),
+            'titulo'       => trim($_POST['titulo'] ?? ''),
+            'materia'      => trim($_POST['materia'] ?? ''),
+            'tipo'         => trim($_POST['tipo'] ?? ''),
             'fecha_evento' => trim($_POST['fecha_evento'] ?? ''),
-            'descripcion' => trim($_POST['descripcion'] ?? '')
+            'descripcion'  => trim($_POST['descripcion'] ?? '')
         ];
     }
 
@@ -140,11 +144,11 @@ class EventoController
     private static function redirigir(string $tipo, string $mensaje): void
     {
         $_SESSION['flash'] = [
-            'tipo' => $tipo,
+            'tipo'    => $tipo,
             'mensaje' => $mensaje
         ];
 
-        header('Location: Inicio.php');
+        header('Location: index.php?opt=inicio');
         exit;
     }
 }

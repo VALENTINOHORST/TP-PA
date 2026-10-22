@@ -30,7 +30,7 @@ class AuthController
             session_destroy();
         }
 
-        header('Location: formLogin.php');
+        header('Location: index.php?opt=login');
         exit;
     }
 
@@ -55,7 +55,7 @@ class AuthController
                 exit;
             }
 
-            header('Location: formLogin.php?error=' . urlencode($mensaje));
+            header('Location: index.php?opt=login&error=' . urlencode($mensaje));
             exit;
         }
 
@@ -82,9 +82,7 @@ class AuthController
                     $_SESSION['nombre'] = $usuario['nombre'];
                     $_SESSION['rol'] = $usuario['rol'];
 
-                    if (!$esAjax) {
-                        unset($_SESSION['captcha']);
-                    }
+                    unset($_SESSION['captcha']);
                 } else {
                     $mensaje = 'Usuario o contraseña incorrectos.';
                 }
@@ -98,11 +96,11 @@ class AuthController
         }
 
         if ($ok) {
-            header('Location: Inicio.php');
+            header('Location: index.php?opt=inicio');
             exit;
         }
 
-        header('Location: formLogin.php?error=' . urlencode($mensaje));
+        header('Location: index.php?opt=login&error=' . urlencode($mensaje));
         exit;
     }
 }

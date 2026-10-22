@@ -1,7 +1,7 @@
 <h4 class="text-center">Formulario de Login</h4><br>
 
 <div class="d-flex justify-content-center">
-    <form id="formLogin" method="post" action="procesoLogin.php" style="min-width:350px;max-width:400px;width:100%">
+    <form id="formLogin" method="post" action="index.php?opt=procesoLogin" style="min-width:350px;max-width:400px;width:100%">
         <div class="mb-3">
             <label>Usuario</label>
             <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" autocomplete="off">

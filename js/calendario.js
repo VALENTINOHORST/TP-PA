@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    fetch('api_eventos.php')
+    fetch('index.php?opt=api_eventos')
     .then(response => {
         if (!response.ok) {
             throw new Error('Error al consultar las fechas del servidor.');

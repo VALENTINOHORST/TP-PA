@@ -1,9 +1,4 @@
-/**
- * Gestión del ABM de Fechas y Eventos
- * - Integración con DataTables
- * - Validaciones en frontend con JavaScript
- * - Modales de Alta, Modificación y Baja
- */
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Inicialización de DataTables sobre la tabla de eventos
     if (window.jQuery && $('#tablaEventos').length) {
@@ -53,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputTipo       = document.getElementById('eventoTipo');
         const inputFecha      = document.getElementById('eventoFecha');
         const inputDesc       = document.getElementById('eventoDescripcion');
-        const checkGlobal     = document.getElementById('eventoGlobal');
+        const selectGlobal    = document.getElementById('eventoGlobal');
 
         // Botón "Nuevo Evento" (Alta)
         const btnNuevo = document.getElementById('btnNuevoEvento');
@@ -63,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 formEvento.reset();
                 inputAccion.value = 'crear';
                 inputId.value = '';
-                if (checkGlobal) {
-                    checkGlobal.checked = false;
+                if (selectGlobal) {
+                    selectGlobal.value = '1'; // Pública por defecto
                 }
                 limpiarValidaciones(formEvento);
             });
@@ -87,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             inputFecha.value   = btnEditar.dataset.fecha || '';
             inputDesc.value    = btnEditar.dataset.descripcion || '';
 
-            if (checkGlobal) {
-                checkGlobal.checked = (btnEditar.dataset.global === '1');
+            if (selectGlobal) {
+                selectGlobal.value = (btnEditar.dataset.global === '1') ? '1' : '0';
             }
 
             const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEventoEl);
@@ -164,4 +159,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
