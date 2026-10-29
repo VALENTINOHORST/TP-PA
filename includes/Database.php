@@ -3,7 +3,7 @@
 class Database
 {
     private static $host = '127.0.0.1';
-    private static $db   = 'calendario_academico';
+    private static $db   = '2026_grupo4';
     private static $user = '2026_grupo4';
     private static $pass = 'gRupp4#1F3k43';
     private static $charset = 'utf8mb4';
