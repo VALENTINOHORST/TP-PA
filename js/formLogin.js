@@ -85,5 +85,3 @@ window.addEventListener('DOMContentLoaded', () => {
         new FormLogin().init();
     }
 });
-
-});

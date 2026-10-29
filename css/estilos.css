@@ -61,3 +61,112 @@ form {
 .alert {
     border-radius: 0.5rem;
 }
+
+/* Contenedor general estilo Google Calendar */
+.gcal-container {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Barra superior de navegación */
+.gcal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dadce0;
+}
+
+.gcal-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #3c4043;
+    margin: 0;
+}
+
+/* Fila de días de la semana (Cabecera) */
+.gcal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dadce0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #70757a;
+    padding: 8px 0;
+}
+
+/* Grilla mensual de 7 columnas */
+.gcal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(110px, auto);
+}
+
+/* Celdas individuales de cada día */
+.gcal-day {
+    border-right: 1px solid #dadce0;
+    border-bottom: 1px solid #dadce0;
+    padding: 4px;
+    position: relative;
+    background-color: #ffffff;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.gcal-day:nth-child(7n) {
+    border-right: none;
+}
+
+.gcal-day.fuera-mes {
+    background-color: #f8f9fa;
+    color: #bdc1c6;
+}
+
+/* Número del día */
+.gcal-day-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 50%;
+    margin-bottom: 4px;
+}
+
+/* Destaque del día actual */
+.gcal-day.es-hoy .gcal-day-num {
+    background-color: #1a73e8;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Contenedor y badges de eventos dentro del casillero */
+.gcal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.gcal-event-badge {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 1.2;
+}
+
+/* Colores de badges según el tipo de fecha */
+.gcal-tipo-final    { background-color: #d93025; }
+.gcal-tipo-parcial  { background-color: #f29900; color: #202124; }
+.gcal-tipo-examen   { background-color: #1a73e8; }
+.gcal-tipo-entrega  { background-color: #1e8e3e; }
+.gcal-tipo-default  { background-color: #5f6368; }

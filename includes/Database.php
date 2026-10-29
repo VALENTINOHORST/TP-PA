@@ -3,9 +3,9 @@
 class Database
 {
     private static $host = '127.0.0.1';
-    private static $db   = 'calendario_academico';
-    private static $user = '2026_grupo4';
-    private static $pass = 'gRupp4#1F3k43';
+    private static $db   = '2026_grupo4'; // o 'calendario_academico', según como hayas nombrado la BD al importarla
+    private static $user = 'root';
+    private static $pass = '';
     private static $charset = 'utf8mb4';
 
     private static $conexion = null;

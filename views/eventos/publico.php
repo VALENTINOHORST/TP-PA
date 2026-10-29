@@ -13,6 +13,6 @@
 
 <div class="card shadow-sm mb-5">
     <div class="card-body p-3">
-        <div id="calendario" style="min-height: 600px;"></div>
+        <div id="calendario"></div>
     </div>
 </div>
